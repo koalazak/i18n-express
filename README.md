@@ -27,7 +27,7 @@ app.use( i18n(i18npath, cookieName, browserEnable, defaultLang) );
  Create a directory "langs" with .json files for each lang. Ej:
  - en.json
  - es.json
- - en-us.json
+ - en\-us.json
  
  With translations like this (en.json):
 
