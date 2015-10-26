@@ -1,6 +1,6 @@
 # i18n-middleware
 A simple i18n middleware for Express.js
-This module just read all the <lang>.json files in a directory. Then calculate the user lang and expose "texts" variable in your views with the texts in that json. 
+This module just reads all the <lang>.json files in a directory. Then calculates the user lang and exposes "texts" variables in your views with the texts in that json. 
 
 ## Requirements
 
