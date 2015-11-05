@@ -10,15 +10,19 @@ This module just reads all the <lang>.json files in a directory. Then calculates
 ## Usage
 
 ```js
-app.use( i18n(i18npath, cookieName, browserEnable, defaultLang) );
+var i18n=require("i18n-express");
+
+app.use( i18n(options) );
 ```
 
-### Params
+### Options
 
-- `i18npath` : *(default: `i18n`)* The path where you store translations json files.
-- `cookieName` : *(default: `null`)* If you provide a cookie name, try to get user lang from this cookie.
+- `translationsPath` : *(default: `i18n`)* The path where you store translations json files.
+- `cookieLangName` : *(default: `ulang`)* If you provide a cookie name, try to get user lang from this cookie.
 - `browserEnable` : *(default: `true`)* If enabled, try to get user lang from browser headers.
 - `defaultLang` :  *(default: `en`)* If all others methods fail, use this lang.
+- `paramLangName` :  *(default: `clang`)* Get param to change user lang. ej: visiting 'example.com?clang=es' the lang switchs to 'es'
+- `siteLangs` :  *(default: `['en']`)* Array of supported langs. (posbile values for clang and json files)
 
 
 ### Example
@@ -46,7 +50,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var i18n=require("./i18n-middleware.js"); // <-- require the module
+var i18n=require("i18n-express"); // <-- require the module
 
 var indexRoutes = require('./routes/index');
 
@@ -56,9 +60,17 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 app.use(cookieParser());
-app.use(i18n(path.join(__dirname, 'langs'))); // <--- use here. Specify translations files path.
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(session({
+  secret: 'secret',
+  saveUninitialized: true,
+  resave: true
+}));
 
+app.use(i18n({
+  translationsPath: path.join(__dirname, 'i18n'), // <--- use here. Specify translations files path.
+  siteLangs: ["en","es"]
+}));
 ...
 
 app.use('/', indexRoutes);

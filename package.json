@@ -1,0 +1,33 @@
+{
+  "name": "i18n-express",
+  "version": "1.0.0",
+  "description": "A simple i18n middleware for Express.js.",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/koalazak/i18n-middleware.git"
+  },
+  "keywords": [
+    "i18n",
+    "express",
+    "middleware",
+    "json",
+    "internationalisation",
+    "node",
+    "session",
+    "language",
+    "lang",
+    "cookies",
+    "javascript",
+    "js"
+  ],
+  "author": "koalazak <zak.tux@gmail.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/koalazak/i18n-middleware/issues"
+  },
+  "homepage": "https://github.com/koalazak/i18n-middleware"
+}

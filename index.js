@@ -60,14 +60,18 @@ function loadLangJSONFiles(langPath, defaultLang){
 }
 
 
-exports = module.exports = function (translationsPath, cookieLangName, browserEnable, defaultLang){
+exports = module.exports = function (opts){
 
 	var i18nTranslations=[];
 	
-	var translationsPath=translationsPath || "i18n";
-	var cookieLangName= cookieLangName || "";
-	var browserEnable = browserEnable || true;
-	var defaultLang=defaultLang || "en";
+	var translationsPath = opts.translationsPath || "i18n";
+	var cookieLangName = opts.cookieLangName || "ulang";
+	var browserEnable = opts.browserEnable || true;
+	var defaultLang = opts.defaultLang || "en";
+	var paramLangName = opts.paramLangName || "clang";
+	var siteLangs = opts.siteLangs || ['en'];
+
+	if(siteLangs.constructor !== Array) throw new Error('siteLangs must be an Array with supported langs.');
 		
 	var computedLang="";
 	
@@ -82,10 +86,20 @@ exports = module.exports = function (translationsPath, cookieLangName, browserEn
 	});
 	
 	return function i18n(req, res, next) {
-	
+		
 		var alreadyTryCookie=false;
 		var alreadyBrowser=false;
-		
+
+		//User is setting a lang via get param. Store and use it.
+		if(paramLangName in req.query){
+			if(siteLangs.indexOf(req.query[paramLangName]) > -1){
+				if(cookieLangName && req.session){
+					req.session[cookieLangName]=req.query[paramLangName].toString();
+				}
+				computedLang=req.query[paramLangName].toString();
+			}
+		}
+
 		while(computedLang==""){
 				
 			if(cookieLangName && alreadyTryCookie == false){				
@@ -114,7 +128,6 @@ exports = module.exports = function (translationsPath, cookieLangName, browserEn
 			}
 		
 		}
-		
 		
 		function setDefaulti18n(){
 			req.app.locals['texts']=i18nTranslations[defaultLang];
