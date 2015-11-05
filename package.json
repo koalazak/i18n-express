@@ -22,7 +22,9 @@
     "lang",
     "cookies",
     "javascript",
-    "js"
+    "js",
+    "handlebars",
+    "ejs"
   ],
   "author": "koalazak <zak.tux@gmail.com",
   "license": "MIT",

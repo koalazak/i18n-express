@@ -1,4 +1,4 @@
-# i18n-middleware
+# i18n-express
 A simple i18n middleware for Express.js
 This module just reads all the <lang>.json files in a directory. Then calculates the user lang and exposes "texts" variables in your views with the texts in that json. 
 
@@ -6,7 +6,7 @@ By default, the user will see the site in the language set by the `cookieLangNam
 
 If the user wants to set the language to spanish for example, he would have to visit *http://site.com/?clang=es* (clang is defined at `paramLangName`).
 
-This can be done by using a <select> or any other means you want. Once that is done, the `cookieLangName` session will be updated with the new language and the user will forever see the site in the new language until he decides to set a new language again. 
+This can be done by using a html 'select' or any other means you want. Once that is done, the `cookieLangName` session will be updated with the new language and the user will forever see the site in the new language until he decides to set a new language again. 
 
 NOTE: When using this module, we recommend also using the [geolang-express](https://github.com/koalazak/geolang-express) module, which sets the `cookieLangName` session to a language based on the visit IP address. 
 
@@ -108,6 +108,7 @@ Or in your handlebars view:
 	<p>{{texts.SOME_TEXT}}</p>
 
 </div>
+```
 
 ### License
 
