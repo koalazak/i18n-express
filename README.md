@@ -8,7 +8,7 @@ If the user wants to set the language to spanish for example, he would have to v
 
 This can be done by using a <select> or any other means you want. Once that is done, the `cookieLangName` session will be updated with the new language and the user will forever see the site in the new language until he decides to set a new language again. 
 
-NOTE: When using this module, we recommend also using the [geolang-express](https://github.com/koalazak/geolang-express) module, which sets the `cookieLangName` session to a language based on the visito's IP address. 
+NOTE: When using this module, we recommend also using the [geolang-express](https://github.com/koalazak/geolang-express) module, which sets the `cookieLangName` session to a language based on the visit IP address. 
 
 
 ## Requirements
