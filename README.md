@@ -16,6 +16,12 @@ NOTE: When using this module, we recommend also using the [geolang-express](http
   - Node >= 0.12
   - Express.js
 
+## Instalation
+
+```bash
+$ npm install i18n-express
+```
+
 ## Usage
 
 ```js
