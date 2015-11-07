@@ -30,7 +30,7 @@ var i18n=require("i18n-express");
 app.use( i18n(options) );
 ```
 
-### Options
+## Options
 
 - `translationsPath` : *(default: `i18n`)* The path where you store translations json files.
 - `cookieLangName` : *(default: `ulang`)* If you provide a cookie name, try to get user lang from this cookie.
@@ -40,7 +40,7 @@ app.use( i18n(options) );
 - `siteLangs` :  *(default: `['en']`)* Array of supported langs. (posbile values for clang and json files)
 
 
-### Example
+## Example
 
 
  Create a directory "i18n" with .json files for each lang. Ej:
@@ -116,10 +116,10 @@ Or in your handlebars view:
 </div>
 ```
 
-### License
+## License
 
 MIT
 
-### Author
+## Author
 
   - [Facu ZAK](https://github.com/koalazak) 
