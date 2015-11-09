@@ -52,8 +52,8 @@ app.use( i18n(options) );
 
  ```json
  {
- "SOME_TEXT": "bla bla bla",
- "ANOTHER_BLA": "More bla"
+ "WELCOME_MSG": "Hi! Welcome!",
+ "CONTACT_TEXT": "More bla"
  }
  ```
  
@@ -96,13 +96,18 @@ module.exports = app;
 
 ```
 
-In your ejs view:
+Now in your ejs view you have `texts` object and `lang` variable with the active language:
 
 ```html
 <div>
+  Choose your language:
+  <ul>
+    <li><a class="<%=(lang=="es"?"active":"")%>" href="/?clang=es">Spanish</a></li>
+    <li><a class="<%=(lang=="en"?"active":"")%>" href="/?clang=en">English</a></li>
+  </ul> 
 
-	<p><%=texts.SOME_TEXT%></p>
-
+	<p><%=texts.WELCOME_MSG%></p>
+  
 </div>
 ```
 
@@ -110,8 +115,13 @@ Or in your handlebars view:
 
 ```html
 <div>
+  Choose your language:
+  <ul>
+    <li><a href="/?clang=es">Spanish</a></li>
+    <li><a href="/?clang=en">English</a></li>
+  </ul> 
 
-	<p>{{texts.SOME_TEXT}}</p>
+	<p>{{texts.WELCOME_MSG}}</p>
 
 </div>
 ```
