@@ -80,7 +80,11 @@ exports = module.exports = function (opts){
 	fs.watch(translationsPath, function (event, filename) {
 			
 		if (filename) {
-			i18nTranslations=loadLangJSONFiles(translationsPath, defaultLang);
+			try{
+				i18nTranslations=loadLangJSONFiles(translationsPath, defaultLang);
+			}catch(ee){
+				//Some editors first empty the file and then save the content. This generate a "Unexpected end of input" error
+			}
 		}
 
 	});
