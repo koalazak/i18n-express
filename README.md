@@ -1,6 +1,8 @@
 # i18n-express
+[![Build Status](https://img.shields.io/travis/koalazak/i18n-express.svg)](https://travis-ci.org/koalazak/i18n-express)
 [![npm version](https://badge.fury.io/js/i18n-express.svg)](http://badge.fury.io/js/i18n-express)
 [![npm dependency status](https://david-dm.org/koalazak/i18n-express.png)](https://david-dm.org/koalazak/i18n-express)
+
 
 A simple i18n middleware for Express.js
 This module just reads all the <lang>.json files in a directory. Then calculates the user lang and exposes "texts" variables in your views with the texts in that json. 
