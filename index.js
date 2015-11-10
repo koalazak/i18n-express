@@ -1,14 +1,14 @@
-var fs=require("fs");
+var fs=require('fs');
 
 function getLangFromHeaders(req){
 	
-	var languagesRaw = req.headers['accept-language'] || "NONE";
-    var lparts = languagesRaw.split(",");
+	var languagesRaw = req.headers['accept-language'] || 'NONE';
+    var lparts = languagesRaw.split(',');
     var languages = [];
     
     for(var x=0; x<lparts.length; x++){
     	
-        var unLangParts=lparts[x].split(";");
+        var unLangParts=lparts[x].split(';');
 	    languages.push(unLangParts[0]);
        		
 	}
@@ -18,17 +18,16 @@ function getLangFromHeaders(req){
 }
 
 function getLangFromCookie(req, cookieName){
-	
+
 	if(cookieName && req.session && req.session[cookieName]){
     	return req.session[cookieName];
     }else{
         if(cookieName in req.cookies){
 	        return req.cookies[cookieName].toString();
         }else{
-	        return "";
+	        return '';
         }
     }
-
 }
 
 function loadLangJSONFiles(langPath, defaultLang){
@@ -40,19 +39,19 @@ function loadLangJSONFiles(langPath, defaultLang){
 
 	if(files){
 	    for(var i=0;i<files.length;i++){
-	        if(files[i].split('.').pop()=="json" && files[i].substr(0,1) != "." ){
+	        if(files[i].split('.').pop()==='json' && files[i].substr(0,1) !== '.' ){
 	            if(files[i].split('.').shift()){
 
 	            	try{
-	            		delete require.cache[require.resolve(langPath+"/"+files[i])];
+	            		delete require.cache[require.resolve(langPath+'/'+files[i])];
 	            	}catch(e){}
 	            	
-	                i18n[files[i].split('.').shift().toLowerCase()]=require(langPath+"/"+files[i]);
+	                i18n[files[i].split('.').shift().toLowerCase()]=require(langPath+'/'+files[i]);
 	            }
 	        }                   
 	    }
     }else{
-		console.log("[i18n] No files in "+langPath);
+		console.log('[i18n] No files in '+langPath);
 	}
     
   return i18n;
@@ -64,16 +63,18 @@ exports = module.exports = function (opts){
 
 	var i18nTranslations=[];
 	
-	var translationsPath = opts.translationsPath || "i18n";
-	var cookieLangName = opts.cookieLangName || "ulang";
-	var browserEnable = opts.browserEnable || true;
-	var defaultLang = opts.defaultLang || "en";
-	var paramLangName = opts.paramLangName || "clang";
+	var translationsPath = opts.translationsPath || 'i18n';
+	var cookieLangName = opts.cookieLangName || 'ulang';
+	var browserEnable = opts.browserEnable !== false;
+	var defaultLang = opts.defaultLang || 'en';
+	var paramLangName = opts.paramLangName || 'clang';
 	var siteLangs = opts.siteLangs || ['en'];
 
-	if(siteLangs.constructor !== Array) throw new Error('siteLangs must be an Array with supported langs.');
+	if(siteLangs.constructor !== Array){
+		throw new Error('siteLangs must be an Array with supported langs.');
+	}
 		
-	var computedLang="";
+	var computedLang='';
 	
 	i18nTranslations=loadLangJSONFiles(translationsPath, defaultLang);
 	
@@ -104,9 +105,9 @@ exports = module.exports = function (opts){
 			}
 		}
 
-		while(computedLang==""){
+		while(computedLang===''){
 				
-			if(cookieLangName && alreadyTryCookie == false){				
+			if(cookieLangName && alreadyTryCookie === false){				
 				var cLang=getLangFromCookie(req, cookieLangName);
 				if(cLang){
 					computedLang=cLang;
@@ -116,7 +117,7 @@ exports = module.exports = function (opts){
 					continue;
 				}
 				
-			}else if(browserEnable && alreadyBrowser == false){
+			}else if(browserEnable && alreadyBrowser === false){
 		 	    var wLang=getLangFromHeaders(req);
 
 				if(wLang.length){
@@ -132,10 +133,10 @@ exports = module.exports = function (opts){
 			}
 		
 		}
-		
+
 		function setDefaulti18n(){
-			req.app.locals['texts']=i18nTranslations[defaultLang];
-			req.app.locals['lang']=defaultLang;
+			req.app.locals.texts=i18nTranslations[defaultLang];
+			req.app.locals.lang=defaultLang;
 		}
 		
 		computedLang=computedLang.toLowerCase();
@@ -143,15 +144,15 @@ exports = module.exports = function (opts){
 		//setting texts to views
 		
 		if(computedLang in i18nTranslations){
-			req.app.locals['texts']=i18nTranslations[computedLang];
-			req.app.locals['lang']=computedLang;
+			req.app.locals.texts=i18nTranslations[computedLang];
+			req.app.locals.lang=computedLang;
 		}else{
-			if(computedLang.indexOf("-") > -1){
+			if(computedLang.indexOf('-') > -1){
 				//try extract "en" from "en-US"
-				var soloLang=computedLang.split("-")[0];
+				var soloLang=computedLang.split('-')[0];
 				if(soloLang in i18nTranslations){
-					req.app.locals['texts']=i18nTranslations[soloLang];
-					req.app.locals['lang']=soloLang;
+					req.app.locals.texts=i18nTranslations[soloLang];
+					req.app.locals.lang=soloLang;
 				}else{
 					setDefaulti18n();
 				}
@@ -161,8 +162,8 @@ exports = module.exports = function (opts){
 		}
 		
 		//req.i18n_all_texts=i18nTranslations;
-		req.i18n_texts=req.app.locals['texts'];
-		req.i18n_lang=req.app.locals['lang'];
+		req.i18n_texts=req.app.locals.texts;
+		req.i18n_lang=req.app.locals.lang;
 
 		next();
    
