@@ -27,7 +27,7 @@
     "handlebars",
     "ejs"
   ],
-  "author": "koalazak <zak.tux@gmail.com",
+  "author": "koalazak <zak.tux@gmail.com>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/koalazak/i18n-express/issues"
