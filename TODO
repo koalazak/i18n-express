@@ -1,2 +1,4 @@
+next version:
+
 -[ ] Add support for webtranslateit json format.
 -[ ] Add _() function to views
