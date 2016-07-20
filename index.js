@@ -95,15 +95,6 @@ exports = module.exports = function (opts){
 		var alreadyTryCookie=false;
 		var alreadyBrowser=false;
 
-		//User is setting a lang via get param. Store and use it.
-		if(paramLangName in req.query){
-			if(siteLangs.indexOf(req.query[paramLangName]) > -1){
-				if(cookieLangName && req.session){
-					req.session[cookieLangName]=req.query[paramLangName].toString();
-				}
-				computedLang=req.query[paramLangName].toString();
-			}
-		}
 
 		while(1){
 				
@@ -136,6 +127,16 @@ exports = module.exports = function (opts){
 		
 		}
 
+		//User is setting a lang via get param. Store and use it.
+		if(paramLangName in req.query){
+			if(siteLangs.indexOf(req.query[paramLangName]) > -1){
+				if(cookieLangName && req.session){
+					req.session[cookieLangName]=req.query[paramLangName].toString();
+				}
+				computedLang=req.query[paramLangName].toString();
+			}
+		}
+		
 		function setDefaulti18n(){
 			req.app.locals.texts=i18nTranslations[defaultLang];
 			req.app.locals.lang=defaultLang;
