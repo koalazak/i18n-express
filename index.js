@@ -105,7 +105,7 @@ exports = module.exports = function (opts){
 			}
 		}
 
-		while(computedLang===''){
+		while(1){
 				
 			if(cookieLangName && alreadyTryCookie === false){				
 				var cLang=getLangFromCookie(req, cookieLangName);
@@ -131,6 +131,8 @@ exports = module.exports = function (opts){
 			}else{
 				computedLang=defaultLang;
 			}
+			if (computedLang != '')
+				break;
 		
 		}
 
