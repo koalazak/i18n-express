@@ -57,6 +57,7 @@ exports = module.exports = function (opts) {
   var defaultLang = opts.defaultLang || 'en';
   var paramLangName = opts.paramLangName || 'clang';
   var siteLangs = opts.siteLangs || ['en'];
+  var textsVarName = opts.textsVarName || 'texts';
 
   if (siteLangs.constructor !== Array) {
     throw new Error('siteLangs must be an Array with supported langs.');
@@ -119,23 +120,23 @@ exports = module.exports = function (opts) {
     }
 
     function setDefaulti18n () {
-      req.app.locals.texts = i18nTranslations[defaultLang];
+      req.app.locals[textsVarName] = i18nTranslations[defaultLang];
       req.app.locals.lang = defaultLang;
     }
 
     computedLang = computedLang.toLowerCase();
 
-    // setting texts to views
+    // setting translations to views
 
     if (computedLang in i18nTranslations) {
-      req.app.locals.texts = i18nTranslations[computedLang];
+      req.app.locals[textsVarName] = i18nTranslations[computedLang];
       req.app.locals.lang = computedLang;
     } else {
       if (computedLang.indexOf('-') > -1) {
         // try extract "en" from "en-US"
         var soloLang = computedLang.split('-')[0];
         if (soloLang in i18nTranslations) {
-          req.app.locals.texts = i18nTranslations[soloLang];
+          req.app.locals[textsVarName] = i18nTranslations[soloLang];
           req.app.locals.lang = soloLang;
         } else {
           setDefaulti18n();
@@ -146,7 +147,7 @@ exports = module.exports = function (opts) {
     }
 
     // req.i18n_all_texts=i18nTranslations;
-    req.i18n_texts = req.app.locals.texts;
+    req.i18n_texts = req.app.locals[textsVarName];
     req.i18n_lang = req.app.locals.lang;
 
     next();
