@@ -41,7 +41,7 @@ app.use( i18n(options) );
 - `defaultLang` :  *(default: `en`)* If all others methods fail, use this lang.
 - `paramLangName` :  *(default: `clang`)* Get param to change user lang. ej: visiting 'example.com?clang=es' the lang switchs to 'es'
 - `siteLangs` :  *(default: `['en']`)* Array of supported langs. (posbile values for clang and json files)
-
+- `textsVarName` : *(default: `texts`)* Name of variable which holds the loaded translations.
 
 ## Example
 
@@ -87,7 +87,8 @@ app.use(session({
 
 app.use(i18n({
   translationsPath: path.join(__dirname, 'i18n'), // <--- use here. Specify translations files path.
-  siteLangs: ["en","es"]
+  siteLangs: ["en","es"],
+  textsVarName: 'translation'
 }));
 ...
 
@@ -109,7 +110,7 @@ Now in your ejs view you have `texts` object and `lang` variable with the active
     <li><a class="<%=(lang=="en"?"active":"")%>" href="/?clang=en">English</a></li>
   </ul> 
 
-	<p><%=texts.WELCOME_MSG%></p>
+	<p><%=translation.WELCOME_MSG%></p>
   
 </div>
 ```
@@ -124,7 +125,7 @@ Or in your handlebars view:
     <li><a href="/?clang=en">English</a></li>
   </ul> 
 
-	<p>{{texts.WELCOME_MSG}}</p>
+	<p>{{translation.WELCOME_MSG}}</p>
 
 </div>
 ```
