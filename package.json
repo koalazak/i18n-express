@@ -4,8 +4,22 @@
   "description": "A simple i18n middleware for Express.js.",
   "main": "index.js",
   "scripts": {
-    "jshint": "jshint .",
-    "test": "mocha"
+    "pretest": "npm install",
+    "check:style": "eslint .",
+    "test": "_mocha -- $npm_package_config_mocha && npm run check:style && npm run test:coverage",
+    "test:coverage:run": "istanbul cover _mocha -- $npm_package_config_mocha",
+    "test:coverage:check": "istanbul check-coverage --functions 80",
+    "test:coverage": "npm run test:coverage:run && npm run test:coverage:check"
+  },
+  "devDependencies": {
+    "mocha": "^3.1.2",
+    "istanbul": "^0.4.0",
+    "semistandard": "^9.1.0",
+    "eslint": "^3.8.0",
+    "eslint-config-standard": "^6.2.0",
+    "eslint-config-semistandard": "^7.0.0",
+    "eslint-plugin-promise": "^3.0.0",
+    "eslint-plugin-standard": "^2.0.1"
   },
   "repository": {
     "type": "git",
