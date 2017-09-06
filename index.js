@@ -17,7 +17,7 @@ function getLangFromCookie (req, cookieName) {
   if (cookieName && req.session && req.session[cookieName]) {
     return req.session[cookieName];
   } else {
-    if (cookieName in req.cookies) {
+    if (req.cookies && cookieName in req.cookies) {
       return req.cookies[cookieName].toString();
     } else {
       return '';
